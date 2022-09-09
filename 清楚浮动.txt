@@ -1,0 +1,81 @@
+清楚浮动四种方法
+    案例讲解
+代码:
+   .container {
+      width: 500px;
+      background-color: black;
+      }
+      .left {
+      width: 200px;
+      height: 300px;
+      background-color: red;
+      float: left;
+      }
+      .right {
+      width: 200px;
+      height: 200px;
+      background-color: green;
+      float: left;
+    }
+    .footer {
+      width: 600px;
+      height: 50px;
+      background-color: blue;
+    }
+<div class="container"> <!-- black -->
+    <div class="left">大毛</div> <!-- red -->
+    <div class="right">二毛</div> <!-- green -->
+  </div>
+  <div class="footer">三毛</div> <!-- blue -->
+
+
+
+    一、额外标签法（W3C推荐）
+在末尾的浮动元素添加一个带有clear:both属性的块级标签。
+
+ .clear{
+      clear: both;
+    }
+
+    二、父级overflow:hidden
+给浮动元素的父盒子添加一个overflow:hidden。
+
+.container {
+      overflow: hidden;
+      width: 500px;
+      background-color: black;
+      }
+
+    三、父级after伪元素
+给父盒子添加一个指定属性的伪元素,如下
+
+ .clearfix:after {
+          visibility: hidden;
+          clear: both;
+          display: block;
+          content: "";
+          height: 0
+      }
+      <!-- IE6、IE7独有 -->
+    .clearfix{ 
+     *zoom: 1;
+    }
+<div class="container clearfix">
+
+    四、父级双伪类元素
+给父盒子添加如下属性
+
+ .clearfix:after, .clearfix::before{
+          content: "";
+          display: table;
+      }
+      .clearfix:after{
+        clear: both;
+      }
+      .clearfix{
+        *zoom: 1;
+      }
+<div class="container clearfix">
+
+    *Imprtant 清除浮动本质
+观察四种方法运行结果可知,清除浮动本质就是给父盒子添加适应于子盒子的高度,父级盒子有高度了就不会影响后面的标准流盒子。
